@@ -22,12 +22,22 @@ class MainActivity : AppCompatActivity() {
 
         btnStartAnotherActivity.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
-            // start your next activity
             startActivity(intent)
         }
-
-
     }
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                val email = data!!.getStringExtra("email")
+                println(email)
+                val password = data.getStringExtra("password")
+                val textView: TextView = findViewById(R.id.emailText) as TextView
+                textView.setOnClickListener {
+                    textView.text = email
+                }
+            }
+        }
+    }
 
 }

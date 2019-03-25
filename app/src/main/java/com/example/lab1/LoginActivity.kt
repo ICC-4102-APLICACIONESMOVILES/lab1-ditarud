@@ -22,15 +22,19 @@ class LoginActivity : AppCompatActivity() {
             val email= email.text.toString();
             val password = password.text;
             if (!isEmailValid(email)) {
-                Toast.makeText(this, "FORMATO INCORRECTO", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Formato Incorrecto", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, "Mail Correcto", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("email", email)
+                intent.putExtra("password", password)
+                setResult(RESULT_OK,intent)
+                startActivityForResult(intent,1)
             }
-            val intent = Intent(this, MainActivity::class.java)
-            // start your next activity
-            startActivity(intent)
+
         }
     }
+
     fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
